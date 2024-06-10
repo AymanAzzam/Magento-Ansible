@@ -1,0 +1,23 @@
+- name: Install Mysql
+  apt:
+    name:
+      - mysql-client
+      - mysql-server
+      - python3-mysqldb
+      - libmysqlclient-dev
+    state: latest
+    update_cache: true
+
+- name: Creating mysql user
+  mysql_user:
+    name: "ayman"
+    password: "ayman@2024"
+    priv: '*.*:ALL'
+    host: '%'
+    state: present
+
+- name: creating medium_db
+  mysql_db:
+    name: "ayman"
+    state: present
+

@@ -1,0 +1,33 @@
+- name: Install composer
+  shell: sudo wget https://getcomposer.org/download/2.7.0/composer.phar; mv composer.phar /usr/local/bin/composer; chmod +x /usr/local/bin/composer
+
+- name: Create a directory
+  file:
+    path: /home/magento/public_html
+    state: directory
+
+- name: Set Magento Access Key
+  command: composer global config http-basic.repo.magento.com "{{ public_key }}" "{{ private_key }}"
+
+- name: Download Magento2 using Composer
+  command: sudo composer create-project -n --repository=https://repo.magento.com/ magento/project-community-edition:2.4.7 /home/magento/public_html/magento
+
+- name: Changing the ownership of magento files
+  file:
+    path: /home/magento
+    state: directory
+    owner: "magento"
+    group: "magento"
+    recurse: yes
+
+- name: Changing the file permissions of magento files
+  file:
+    path: /home/magento/public_html/magento
+    state: directory
+    mode: '0755'
+
+# - name: restart nginx
+#   service:
+#     name: nginx
+#     state: restarted
+#   become: yes

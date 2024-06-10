@@ -1,0 +1,12 @@
+- hosts: localhost
+  become: True
+  gather_facts: false
+  vars_files:
+   var.yml
+
+  roles:
+    - nginx
+    - php
+    - mysql
+    - redis
+    - magento2
