@@ -9,4 +9,5 @@
     - php
     - mysql
     - redis
+    - elasticsearch
     - magento2
